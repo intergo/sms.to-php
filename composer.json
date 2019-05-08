@@ -22,7 +22,5 @@
         "psr-4": {
             "SmsTo\\": "SmsTo/"
         }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
+    }
 }
