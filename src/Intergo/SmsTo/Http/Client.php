@@ -242,6 +242,41 @@ class Client {
     }
 
     /**
+     * Fetch paginated lists
+     *
+     * @return array
+     */
+    public function getLists()
+    {
+        $this->getAccessToken();
+        
+        $path = $this->baseUrl . '/lists';
+
+        $body = [];
+
+        return $this->request($path, 'get', $body);
+    }
+
+    /**
+     * Get a single list with the specified ID.
+     * Initially you need to make a request to fetch all lists. 
+     * From that you can get the ID of a specific list and then 
+     * fetch its data separately.
+     *
+     * @return array
+     */
+    public function getList($id)
+    {
+        $this->getAccessToken();
+        
+        $path = $this->baseUrl . '/lists/' . $id;
+
+        $body = [];
+
+        return $this->request($path, 'get', $body);
+    }
+
+    /**
      * Set the message.
      *
      * @param string $message 
