@@ -1,6 +1,6 @@
 <?php 
 
-namespace SmsTo\Http;
+namespace Intergo\SmsTo\Http;
 
 use GuzzleHttp\Client as HttpClient;
 use GuzzleHttp\Psr7;
