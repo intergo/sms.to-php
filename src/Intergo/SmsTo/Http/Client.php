@@ -123,7 +123,7 @@ class Client {
     }
 
     /**
-     * Refresh Access token.
+     * Refreshes Access token.
      *
      * @return string
      */
@@ -169,9 +169,7 @@ class Client {
         
         $path = $this->baseUrl . '/balance';
 
-        $body = [];
-
-        return $this->request($path, 'post', $body);
+        return $this->request($path, 'post');
     }
 
     /**
@@ -241,12 +239,8 @@ class Client {
     public function getLists()
     {
         $this->getAccessToken();
-        
         $path = $this->baseUrl . '/lists';
-
-        $body = [];
-
-        return $this->request($path, 'get', $body);
+        return $this->request($path, 'get');
     }
 
     /**
@@ -260,12 +254,8 @@ class Client {
     public function getList($id)
     {
         $this->getAccessToken();
-        
         $path = $this->baseUrl . '/lists/' . $id;
-
-        $body = [];
-
-        return $this->request($path, 'get', $body);
+        return $this->request($path, 'get');
     }
 
     /**
@@ -345,11 +335,11 @@ class Client {
      *
      * @param string $path
      * @param string $method
-     * @param array $data
+     * @param array|null $body
      *
      * @return array
      */
-    public function request($path, $method, $data = [])
+    public function request($path, $method, $body = [])
     {
         $headers = [
             'Content-Type' => 'application/json',
@@ -368,7 +358,7 @@ class Client {
                     break;
                 case 'post':
                     $response = $client->post($path, [
-                        'json' => $data,
+                        'json' => $body,
                     ])->getBody()->getContents();
                     break;
                 case 'delete':
@@ -376,7 +366,7 @@ class Client {
                     break;
                 case 'put':
                     $response = $client->put($path, [
-                        'json' => $data,
+                        'json' => $body,
                     ])->getBody()->getContents();
                     break;
                 default:
