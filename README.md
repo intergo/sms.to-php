@@ -29,3 +29,9 @@ $response = $client->setMessages($messages)
    		->sendSingle();
 var_dump($response);
 ```
+
+## Documentation
+
+The documentation for the SMS.to RESR API is located [here](https://sms.to/api-docs)
+
+
