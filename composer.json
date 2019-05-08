@@ -21,6 +21,6 @@
     "autoload": {
         "psr-0": {
             "Intergo\\SmsTo\\": "src/"
-        },
+        }
     }
 }
