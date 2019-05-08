@@ -154,7 +154,7 @@ class Client {
         // }
 
         $response = $this->request($url, 'post', $this->credentials);
-        if ($response) {
+        if (isset($response['access_token'])) {
             // $date = Carbon::now()->addSeconds($response['expires_in']);
             // Storage::disk('local')->put('smsto/accessTokenExpiredOn', $date->toDateTimeString());
             // Storage::disk('local')->put('smsto/accessToken', $response['access_token']);
@@ -330,7 +330,7 @@ class Client {
         ];
         $headers['Authorization'] = ' Bearer ' . $this->accessToken;
 
-        $client = new HttpClient(['headers' => $headers, 'verify' => false]);
+        $client = new HttpClient(['headers' => $headers]);
         $response = '';
         try
         {
