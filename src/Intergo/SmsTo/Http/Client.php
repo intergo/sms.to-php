@@ -88,12 +88,13 @@ class Client {
 
     public $password;
 
-    public function __construct($clientId = null, $clientSecret = null, $username = null, $password = null)
+    public function __construct($clientId = null, $clientSecret = null, $username = null, $password = null, $accessToken = null)
     {
         $this->clientId = $clientId;
         $this->clientSecret = $clientSecret;
         $this->username = $username;
         $this->password = $password;
+        $this->accessToken = $accessToken;
     }
 
     /**
@@ -103,6 +104,10 @@ class Client {
      */
     public function getAccessToken()
     {
+        // If we have value in access token then just return it
+        if ($this->accessToken) {
+            return $this->accessToken;
+        }
         $url = $this->baseUrl . '/oauth/token';
 
         $this->credentials = [
@@ -144,23 +149,10 @@ class Client {
      */
     public function token($url)
     {
-        // Check if we have accessToken saved already
-        // if (Storage::disk('local')->exists('smsto/accessToken')) {
-        //     $dateExpired = Storage::disk('local')->get('smsto/accessTokenExpiredOn');
-        //     if ($dateExpired > Carbon::now()->toDateTimeString()) {
-        //         $this->accessToken = Storage::disk('local')->get('smsto/accessToken');
-        //         return $this->accessToken;
-        //     }
-        // }
-
         $response = $this->request($url, 'post', $this->credentials);
         if (isset($response['access_token'])) {
-            // $date = Carbon::now()->addSeconds($response['expires_in']);
-            // Storage::disk('local')->put('smsto/accessTokenExpiredOn', $date->toDateTimeString());
-            // Storage::disk('local')->put('smsto/accessToken', $response['access_token']);
             $this->accessToken = $response['access_token'];
-
-            return $this->accessToken;
+            return $response;
         }
 
         return false;
@@ -363,10 +355,10 @@ class Client {
             'Content-Type' => 'application/json',
             'Accept' => 'application/json'
         ];
-        $headers['Authorization'] = ' Bearer ' . $this->accessToken;
+        $headers['Authorization'] = 'Bearer ' . $this->accessToken;
 
         $client = new HttpClient(['headers' => $headers]);
-        $response = '';
+        $response = null;
         try
         {
             switch ($method)
