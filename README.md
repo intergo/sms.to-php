@@ -18,7 +18,7 @@ composer require intergo/smsto-php
 <?php
 $clientId = 6; // Your client id from www.sms.to
 $clientSecret = 'xxxx'; // Your client secret from www.sms.to
-$username = ''; // Your email from www.sms.to
+$username = 'email@example.com'; // Your email from www.sms.to
 $password = 'password'; // Your password from www.sms.to
 
 $client = new Intergo\SmsTo\Http\Client($clientId, $clientSecret, $username, $password);
