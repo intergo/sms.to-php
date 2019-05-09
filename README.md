@@ -3,7 +3,7 @@ A PHP library for communicating with the SMS.to REST API
 
 ## Installation
 
-You need to be have an Sms.To account to use this package. If you do not have one, [get here](https://sms.to).
+You need to have an working account on  Sms.To with sufficient balance loaded to be able to use this package. If you do not have one, [please get one here](https://sms.to).
 
 Require this package with composer.
 
