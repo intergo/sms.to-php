@@ -71,6 +71,15 @@ class Client {
     public $callbackUrl;
 
     /**
+     * Environment
+     *
+     * Developer can use live or sandbox
+     *
+     * @var string
+     */
+    public $environment = 'sandbox';
+
+    /**
      * Base URL
      *
      * Base URL to be use for calling API
@@ -80,14 +89,48 @@ class Client {
      */
     public $baseUrl = 'https://api.smsto.space/v1';
 
+    /**
+     * The client id
+     *
+     *
+     * @var integer
+     */
     public $clientId;
 
+    /**
+     * The client secret
+     *
+     *
+     * @var string
+     */
     public $clientSecret;
 
+    /**
+     * The username or email account in sms.to
+     *
+     *
+     * @var string
+     */
     public $username;
 
+    /**
+     * The password we use in sms.to itself
+     *
+     *
+     * @var string
+     */
     public $password;
 
+    /**
+     * Constructor
+     *
+     * @param integer|null $clientId
+     * @param string|null $clientSecret
+     * @param string|null $username
+     * @param string|null $password
+     * @param string|null $accessToken
+     * @return void
+     */
     public function __construct($clientId = null, $clientSecret = null, $username = null, $password = null, $accessToken = null)
     {
         $this->clientId = $clientId;
@@ -145,6 +188,7 @@ class Client {
     /**
      * Access token.
      *
+     * @param string $url
      * @return string|bool
      */
     public function token($url)
