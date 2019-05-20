@@ -24,8 +24,8 @@ $password = 'password'; // Your password from www.sms.to
 $client = new Intergo\SmsTo\Http\Client($clientId, $clientSecret, $username, $password);
 $messages = [['to' => '+63917*******', 'message' => 'Hi Market!']];
 $response = $client->setMessages($messages)
-		->setSenderId('COLTD')
-   		->setCallbackUrl('https://mysite.org/smscallback')
+		->setSenderId('YOUR_NAME')
+   		->setCallbackUrl('https://your-site.com/smscallback')
    		->sendSingle();
 var_dump($response);
 ```
