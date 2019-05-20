@@ -105,6 +105,31 @@ $client->getList(1);
 | list id      | 1 | Yes |
 
 
+### Handling Webhook/Callback
+
+When `Callback URL` is specified, we send Callback data to the `Callback URL`. The parameters are sent via a POST request to your `Callback URL`. SMS.to will be expecting response 200 OK in return, or it will keep retrying every 15 minutes until the Callback expires (up to 48 hours).
+
+
+```php
+
+// Use following data to update status of your sms.
+$_POST['trackingId']
+$_POST['messageId']
+$_POST['phone']
+$_POST['status']
+$_POST['parts']
+$_POST['price']
+
+```
+
+| Parameter        | Sample           |
+| ------------- |-------------|
+| trackingId      | 185c9d63-dae2-4614-b0f4-48453e870dcf |
+| messageId      | 185c9d63-dae2-4614-b0f4-48453e870dcf      |
+| phone | +3579958****      |
+| status | SENT |
+| parts | 1 |
+| price | 0.015 |
 ## Documentation
 
 The documentation for the SMS.to REST API is located [here](https://sms.to/api-docs)
