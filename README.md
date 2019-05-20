@@ -23,21 +23,6 @@ $client = new Intergo\SmsTo\Http\Client($clientId, $clientSecret, $username, $pa
 
 ```
 
-## Lets send SMS
-
-```php
-// Send an SMS using SMS.to REST API and PHP
-<?php
-
-$messages = [['to' => '+63917*******', 'message' => 'Hi Market!']];
-$response = $client->setMessages($messages)
-		->setSenderId('YOUR_NAME')
-   		->setCallbackUrl('https://your-site.com/smscallback')
-   		->sendSingle();
-var_dump($response);
-```
-
-
 ### Sending SMS to multiple numbers (broadcasting):
 ```php
 // Text message that will be sent to multiple numbers:
@@ -47,13 +32,13 @@ $message = 'Hello World!';
 $recipients = ['+4474*******', '+35799******', '+38164*******'];
 
 // Send (broadcast) the $message to $recipients: 
-SmsTo::setMessage($message)
+$client->setMessage($message)
     ->setRecipients($recipients)
     ->sendMultiple();
 ```
 As for the sender ID and callback URL, the values set in the configuration file will be used by default. You can also specify these values by using the `->setSenderId()` and `->setCallbackUrl()` methods:
 ```php
-SmsTo::setMessage($message)
+$client->setMessage($message)
     ->setRecipients($recipients)
     ->setSenderId('YOUR_NAME')
     ->setCallbackUrl('https://your-site.com/smscallback')
@@ -76,14 +61,14 @@ Please note that using these methods will override the values set in the configu
     ],
 ];
 
-SmsTo::setMessages($messages)->sendSingle();
+$client->setMessages($messages)->sendSingle();
 ```
 
 ### Sending single SMS to a list:
 
 ```php
     $message = 'Hello World!';
-    SmsTo::setMessage($message)
+    $client->setMessage($message)
      ->setListId(1)
      ->setSenderId('YOUR_NAME')
      ->setCallbackUrl('https://your-site.com/smscallback')
@@ -94,13 +79,13 @@ SmsTo::setMessages($messages)->sendSingle();
 
 ```php
 
-SmsTo::getBalance();
+$client->getBalance();
 ```
 
 ### Fetch paginated lists:
 
 ```php
-SmsTo::getLists(['limit' => 100, 'page' => 1, 'sort' => 'created_at', 'search' => 'My List']);
+$client->getLists(['limit' => 100, 'page' => 1, 'sort' => 'created_at', 'search' => 'My List']);
 ```
 
 | Parameter        | Value           | Required  |
@@ -113,7 +98,7 @@ SmsTo::getLists(['limit' => 100, 'page' => 1, 'sort' => 'created_at', 'search' =
 ### Fetch single list:
 
 ```php
-SmsTo::getList(1);
+$client->getList(1);
 ```
 | Parameter        | Value           | Required  |
 | ------------- |-------------| -----|
