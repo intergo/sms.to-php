@@ -11,7 +11,7 @@ Require this package with composer.
 composer require intergo/smsto-php
 ```
 
-## Lets send SMS
+## Prepare Client
 
 ```php
 // Send an SMS using SMS.to REST API and PHP
@@ -22,6 +22,15 @@ $username = 'email@example.com'; // Your email from www.sms.to
 $password = 'password'; // Your password from www.sms.to
 
 $client = new Intergo\SmsTo\Http\Client($clientId, $clientSecret, $username, $password);
+
+```
+
+## Lets send SMS
+
+```php
+// Send an SMS using SMS.to REST API and PHP
+<?php
+
 $messages = [['to' => '+63917*******', 'message' => 'Hi Market!']];
 $response = $client->setMessages($messages)
 		->setSenderId('YOUR_NAME')
