@@ -121,6 +121,13 @@ class Client {
     public $password;
 
     /**
+     * We can add options for get requests
+     *
+     * @var array $options
+     */
+    public $options;
+
+    /**
      * Constructor
      *
      * @param integer|null $clientId
@@ -279,8 +286,11 @@ class Client {
      *
      * @return array
      */
-    public function getLists()
+    public function getLists($options = null)
     {
+        if ($options) {
+            $this->options = $options;
+        }
         $this->getAccessToken();
         $path = $this->baseUrl . '/lists';
         return $this->request($path, 'get');
@@ -392,6 +402,9 @@ class Client {
 
         $client = new HttpClient(['headers' => $headers]);
         $response = null;
+        if ($this->options != null and !empty($this->options)) {
+            $path .= '?' . http_build_query($this->options);
+        }
         try
         {
             switch ($method)
