@@ -41,7 +41,7 @@ As for the sender ID and callback URL, the values set in the configuration file 
 $client->setMessage($message)
     ->setRecipients($recipients)
     ->setSenderId('YOUR_NAME')
-    ->setCallbackUrl('https://your-site.com/smscallback')
+    ->setCallbackUrl('https://your-site.com/smscallback.php')
     ->sendMultiple();
 ```
 Please note that using these methods will override the values set in the configuration file.
@@ -71,7 +71,7 @@ $client->setMessages($messages)->sendSingle();
     $client->setMessage($message)
      ->setListId(1)
      ->setSenderId('YOUR_NAME')
-     ->setCallbackUrl('https://your-site.com/smscallback')
+     ->setCallbackUrl('https://your-site.com/smscallback.php')
      ->sendList();
 ```
 
@@ -111,7 +111,7 @@ When `Callback URL` is specified, we send Callback data to the `Callback URL`. T
 
 
 ```php
-
+// https://your-site.com/smscallback.php
 // Use following data to update status of your sms.
 $_POST['trackingId']
 $_POST['messageId']
