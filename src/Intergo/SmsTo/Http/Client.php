@@ -144,6 +144,11 @@ class Client {
         $this->username = $username;
         $this->password = $password;
         $this->accessToken = $accessToken;
+        
+        // Check if this library is used by laravel
+        if (function_exists('config')) {
+            $this->baseUrl = config('smsto.base_url');
+        }
     }
 
     /**
