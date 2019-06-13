@@ -86,7 +86,7 @@ class Client {
      *
      * @var string
      */
-    public $baseUrl = 'https://api.smsto.space/v1';
+    public $baseUrl = 'https://api.sms.to/v1';
 
     /**
      * The client id
