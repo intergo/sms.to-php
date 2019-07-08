@@ -8,7 +8,7 @@ You need to have an working account on  Sms.To with sufficient balance loaded to
 Require this package with composer.
 
 ```shell
-composer require intergo/smsto-php
+composer require intergo/sms.to-php
 ```
 
 ## Prepare Client
