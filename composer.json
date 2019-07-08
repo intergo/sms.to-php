@@ -1,5 +1,5 @@
 {
-    "name": "intergo/smsto-php",
+    "name": "intergo/sms.to-php",
     "description": "A PHP library for communicating with the SMS.to REST API",
     "keywords": [
         "php",
