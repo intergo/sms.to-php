@@ -132,4 +132,4 @@ $_POST['price']
 | price | 0.015 |
 ## Documentation
 
-The documentation for the SMS.to REST API is located [here](https://sms.to/api-docs)
+The documentation for the SMS.to REST API is located [here](https://sms.to/api-docs/index.html)
