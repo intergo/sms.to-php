@@ -1,3 +1,11 @@
+<p align="center">
+  <a href="https://sms.to"><img width="400" src="https://sms.to/images/logo.svg"></a>
+</p>
+
+<h2 align="center">
+SMS API integration for PHP (https://sms.to)
+</h2>
+
 # sms.to-php
 A PHP library for communicating with the SMS.to REST API
 
