@@ -6,7 +6,6 @@
 SMS API integration for PHP (https://sms.to)
 </h2>
 
-# sms.to-php
 A PHP library for communicating with the SMS.to REST API
 
 ## Installation
