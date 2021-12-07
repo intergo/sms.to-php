@@ -62,6 +62,8 @@ class OauthCredential implements ICredential
     }
 
     /**
+     * Verify if ClientID and Secret are valid
+     *
      * @return array
      * @throws GuzzleException
      * @throws Exception
@@ -135,8 +137,9 @@ class OauthCredential implements ICredential
     }
 
     /**
+     * This is required for our test servers only for testing
+     *
      * @param string $url
-     * @return void
      */
     public function setBaseUrl(string $url)
     {

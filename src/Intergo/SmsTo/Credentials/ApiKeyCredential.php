@@ -42,6 +42,8 @@ class ApiKeyCredential implements ICredential
     }
 
     /**
+     * Verify if the API Key is valid
+     *
      * @return array
      * @throws GuzzleException
      * @throws Exception
@@ -83,6 +85,8 @@ class ApiKeyCredential implements ICredential
     }
 
     /**
+     * For API Key not required
+     *
      * @return array
      */
     public function refreshToken(): array
@@ -91,6 +95,8 @@ class ApiKeyCredential implements ICredential
     }
 
     /**
+     * For API Key not required
+     *
      * @return int
      */
     public function getExpireTTL(): int
@@ -99,6 +105,8 @@ class ApiKeyCredential implements ICredential
     }
 
     /**
+     * This is required for our test servers only for testing
+     *
      * @param string $url
      */
     public function setBaseUrl(string $url)

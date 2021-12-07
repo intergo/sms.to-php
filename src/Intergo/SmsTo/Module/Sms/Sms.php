@@ -10,14 +10,34 @@ use Intergo\SmsTo\Http\Client;
 use Intergo\SmsTo\Module\BaseModule;
 use Intergo\SmsTo\Module\Sms\Message\IMessage;
 
+/**
+ * Class Sms
+ * @package Intergo\SmsTo\Module\Sms
+ */
 class Sms extends BaseModule
 {
+    /**
+     * @var string
+     */
     protected $url = 'https://api.sms.to';
 
+    /**
+     * @var string
+     */
     private $type = 'sms';
 
+    /**
+     * @var string[]
+     */
     private $allowed_types = ['sms', 'fsms', 'viber'];
 
+    /**
+     * Estimate SMS
+     *
+     * @param IMessage $message
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function estimate(IMessage $message)
     {
         $data = $message->prepare();
@@ -26,6 +46,13 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->post($url, $data)->json(true);
     }
 
+    /**
+     * Send SMS
+     *
+     * @param IMessage $message
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function send(IMessage $message)
     {
         $data = $message->prepare();
@@ -34,6 +61,12 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->post($url, $data)->json(true);
     }
 
+    /**
+     * Get all campaigns
+     *
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getCampaigns()
     {
         $url = $this->url . '/campaigns';
@@ -41,6 +74,12 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->get($url)->json(true);
     }
 
+    /**
+     * Get Last Campaign
+     *
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getLastCampaign()
     {
         $url = $this->url . '/last/campaign';
@@ -48,6 +87,13 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->get($url)->json(true);
     }
 
+    /**
+     * Get campaign by ID
+     *
+     * @param string $id
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getCampaignByID(string $id)
     {
         $url = $this->url . '/campaigns/' . $id;
@@ -55,6 +101,12 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->get($url)->json(true);
     }
 
+    /**
+     * Get all messages
+     *
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getMessages()
     {
         $url = $this->url . '/messages';
@@ -62,6 +114,12 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->get($url)->json(true);
     }
 
+    /**
+     * Get last message
+     *
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getLastMessage()
     {
         $url = $this->url . '/last/message';
@@ -69,6 +127,13 @@ class Sms extends BaseModule
         return Client::withHeaders($headers)->get($url)->json(true);
     }
 
+    /**
+     * Get message by ID
+     *
+     * @param string $id
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function getMessageByID(string $id)
     {
         $url = $this->url . '/message/' . $id;
@@ -77,6 +142,7 @@ class Sms extends BaseModule
     }
 
     /**
+     * Set SMS type: sms, fsms or viber
      * @throws Exception
      */
     public function setType(string $type)

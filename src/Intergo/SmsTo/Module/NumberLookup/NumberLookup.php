@@ -8,10 +8,24 @@ use Intergo\SmsTo\Credentials\ICredential;
 use Intergo\SmsTo\Http\Client;
 use Intergo\SmsTo\Module\BaseModule;
 
+/**
+ * Class NumberLookup
+ * @package Intergo\SmsTo\Module\NumberLookup
+ */
 class NumberLookup extends BaseModule
 {
+    /**
+     * @var string
+     */
     protected $url = 'https://sms.to';
 
+    /**
+     * Estimate the cost of number lookup
+     *
+     * @param string $phone
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function estimate(string $phone)
     {
         $data = ['to' => $phone];
@@ -20,6 +34,13 @@ class NumberLookup extends BaseModule
         return Client::withHeaders($headers)->post($url, $data)->json(true);
     }
 
+    /**
+     * Verify the phone if active or different status
+     *
+     * @param string $phone
+     * @return array|mixed|\stdClass
+     * @throws \GuzzleHttp\Exception\GuzzleException
+     */
     public function verify(string $phone)
     {
         $data = ['to' => $phone];
