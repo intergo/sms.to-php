@@ -6,6 +6,16 @@ namespace Intergo\SmsTo\Module\Sms\Message;
 
 use Exception;
 
+/**
+ * @package Intergo\SmsTo\Module\Sms\Message
+ * Class CampaignMessage
+ *
+ * @method CampaignMessage setSenderID(string $senderID)
+ * @method CampaignMessage setBypassOptout(bool $bypassOptout)
+ * @method CampaignMessage setCallbackURL(string $callbackURL)
+ * @method CampaignMessage setScheduledFor(string $scheduledFor)
+ * @method CampaignMessage setTimezone(string $timezone)
+ */
 class CampaignMessage extends Message
 {
     /**
@@ -18,6 +28,10 @@ class CampaignMessage extends Message
      */
     public $message;
 
+    /**
+     * @return array
+     * @throws Exception
+     */
     public function prepare(): array
     {
         $data = parent::prepare();
@@ -37,10 +51,12 @@ class CampaignMessage extends Message
 
     /**
      * @param array $to
+     * @return CampaignMessage
      */
     public function setTo(array $to)
     {
         $this->to = $to;
+        return $this;
     }
 
     /**
@@ -52,10 +68,12 @@ class CampaignMessage extends Message
     }
 
     /**
-     * @param mixed $message
+     * @param $message
+     * @return CampaignMessage
      */
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 }

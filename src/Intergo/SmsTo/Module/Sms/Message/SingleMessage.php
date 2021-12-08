@@ -6,6 +6,16 @@ namespace Intergo\SmsTo\Module\Sms\Message;
 
 use Exception as Exception;
 
+/**
+ * @package Intergo\SmsTo\Module\Sms\Message
+ * Class SingleMessage
+ *
+ * @method SingleMessage setSenderID(string $senderID)
+ * @method SingleMessage setBypassOptout(bool $bypassOptout)
+ * @method SingleMessage setCallbackURL(string $callbackURL)
+ * @method SingleMessage setScheduledFor(string $scheduledFor)
+ * @method SingleMessage setTimezone(string $timezone)
+ */
 class SingleMessage extends Message
 {
     /**
@@ -32,6 +42,7 @@ class SingleMessage extends Message
     public function setTo(string $to)
     {
         $this->to = $to;
+        return $this;
     }
 
     /**
@@ -48,6 +59,7 @@ class SingleMessage extends Message
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 
     public function prepare(): array

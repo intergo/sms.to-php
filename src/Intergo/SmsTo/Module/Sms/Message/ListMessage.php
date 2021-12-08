@@ -6,6 +6,16 @@ namespace Intergo\SmsTo\Module\Sms\Message;
 
 use Exception;
 
+/**
+ * @package Intergo\SmsTo\Module\Sms\Message
+ * Class ListMessage
+ *
+ * @method ListMessage setSenderID(string $senderID)
+ * @method ListMessage setBypassOptout(bool $bypassOptout)
+ * @method ListMessage setCallbackURL(string $callbackURL)
+ * @method ListMessage setScheduledFor(string $scheduledFor)
+ * @method ListMessage setTimezone(string $timezone)
+ */
 class ListMessage extends Message
 {
     public $list_id;
@@ -20,10 +30,12 @@ class ListMessage extends Message
 
     /**
      * @param $listId
+     * @return ListMessage
      */
     public function setListId($listId)
     {
         $this->list_id = $listId;
+        return $this;
     }
 
     /**
@@ -36,10 +48,12 @@ class ListMessage extends Message
 
     /**
      * @param mixed $message
+     * @return ListMessage
      */
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 
     /**

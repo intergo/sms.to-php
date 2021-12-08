@@ -40,6 +40,7 @@ class Message implements IMessage
     public function setSenderID(string $senderID)
     {
         $this->senderID = $senderID;
+        return $this;
     }
 
     /**
@@ -56,6 +57,7 @@ class Message implements IMessage
     public function setCallbackURL(string $callbackURL)
     {
         $this->callbackURL = $callbackURL;
+        return $this;
     }
 
     /**
@@ -72,6 +74,7 @@ class Message implements IMessage
     public function setScheduledFor(string $scheduledFor)
     {
         $this->scheduledFor = $scheduledFor;
+        return $this;
     }
 
     /**
@@ -88,6 +91,7 @@ class Message implements IMessage
     public function setTimezone(string $timezone)
     {
         $this->timezone = $timezone;
+        return $this;
     }
 
     /**
@@ -104,6 +108,7 @@ class Message implements IMessage
     public function setBypassOptout(bool $bypassOptout)
     {
         $this->bypassOptout = $bypassOptout;
+        return $this;
     }
 
     /**

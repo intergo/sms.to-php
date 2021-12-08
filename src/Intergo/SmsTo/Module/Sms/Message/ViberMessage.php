@@ -6,6 +6,16 @@ namespace Intergo\SmsTo\Module\Sms\Message;
 
 use Exception;
 
+/**
+ * @package Intergo\SmsTo\Module\Sms\Message
+ * Class ViberMessage
+ *
+ * @method ViberMessage setSenderID(string $senderID)
+ * @method ViberMessage setBypassOptout(bool $bypassOptout)
+ * @method ViberMessage setCallbackURL(string $callbackURL)
+ * @method ViberMessage setScheduledFor(string $scheduledFor)
+ * @method ViberMessage setTimezone(string $timezone)
+ */
 class ViberMessage extends Message
 {
     /**
@@ -86,6 +96,7 @@ class ViberMessage extends Message
     public function setTo(string $to)
     {
         $this->to = $to;
+        return $this;
     }
 
     /**
@@ -102,6 +113,7 @@ class ViberMessage extends Message
     public function setMessage($message)
     {
         $this->message = $message;
+        return $this;
     }
 
     public function prepare(): array
