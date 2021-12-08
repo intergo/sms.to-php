@@ -20,6 +20,14 @@ composer require intergo/sms.to-php
 
 For more details on using this package, visit [this wiki](https://github.com/intergo/sms.to-php/wiki).
 
-
+## Table of Content
+- [Home](https://github.com/intergo/sms.to-php/wiki/1.-Home)
+- [Installation](https://github.com/intergo/sms.to-php/wiki/2.-Installation)
+- [Authentication](https://github.com/intergo/sms.to-php/wiki/3.-Authentication)
+- [SMS Messaging](https://github.com/intergo/sms.to-php/wiki/4.-SMS-Messaging)
+- [Lists & Contacts](https://github.com/intergo/sms.to-php/wiki/5.-Lists-&-Contacts)
+- [Shortlinks](https://github.com/intergo/sms.to-php/wiki/6.-Shortlinks)
+- [Number Lookup](https://github.com/intergo/sms.to-php/wiki/7.-Number-Lookup)
+- [Team Management](https://github.com/intergo/sms.to-php/wiki/8.-Team-Management)
 ## REST API Documentation
 For more information, refer to SMS.to REST documentation [here](https://docs.sms.to/api/#generate-access-token)
