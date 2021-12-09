@@ -59,14 +59,17 @@ class OauthCredential implements ICredential
      * @param string $clientId
      * @param string $secret
      * @param null $expiresIn
+     * @param bool $enableAutoRefresh
      * @param $autoRefreshOffset
      */
-    public function __construct(string $clientId, string $secret, $expiresIn = null, $autoRefreshOffset = null)
+    public function __construct(string $clientId, string $secret, $expiresIn = null, bool $enableAutoRefresh = false, $autoRefreshOffset = null)
     {
         $this->clientId = $clientId;
         $this->secret = $secret;
-        $this->expiresIn = (int) $expiresIn;
-        $this->autoRefreshOffset = $this->expiresIn == 1 ? 30 : $autoRefreshOffset ?? 60;
+        $this->expiresIn = (int)$expiresIn;
+        if ($enableAutoRefresh) {
+            $this->autoRefreshOffset = $this->expiresIn == 1 ? 30 : $autoRefreshOffset ?? 60;
+        }
     }
 
     /**
@@ -86,14 +89,12 @@ class OauthCredential implements ICredential
      */
     public function verify(): array
     {
-        if($this->accessToken) {
-            $credentials = [
+        if ($this->accessToken) {
+            return [
                 'jwt' => $this->accessToken,
                 'expires' => $this->expiresIn,
                 'token_type' => 'bearer',
             ];
-            var_dump($credentials);die();
-            return $credentials;
         }
         $url = $this->url . '/oauth/token';
         $credentials = [
@@ -102,8 +103,7 @@ class OauthCredential implements ICredential
             'expires_in' => $this->expiresIn,
         ];
         $response = Client::withHeaders(Client::JSON_HEADERS)->post($url, $credentials)->json(true);
-        if(!isset($response['jwt']))
-        {
+        if (!isset($response['jwt'])) {
             throw new Exception($response['message']);
         }
         $this->accessToken = $response['jwt'];
@@ -123,25 +123,24 @@ class OauthCredential implements ICredential
 
     /**
      * @return array|string[]
+     * @throws GuzzleException
      */
     public function getAuthHeader(): array
     {
-        if(empty($this->accessToken))
-        {
+        if (empty($this->accessToken)) {
             return [];
         }
-        if($this->autoRefreshOffset && $this->expireTS) {
+        if ($this->autoRefreshOffset && $this->expireTS) {
             $now = new DateTime();
             $diff = $now->diff($this->expireTS)->s;
-            if($diff > 0 && $diff <= $this->autoRefreshOffset) {
-                echo "Refresh Token\n";
+            if ($diff > 0 && $diff <= $this->autoRefreshOffset) {
                 $this->refreshToken();
             }
         }
         return $this->getHeaders();
     }
 
-    private function getHeaders()
+    private function getHeaders(): array
     {
         return [
             'Authorization' => 'Bearer ' . $this->accessToken,
@@ -160,8 +159,7 @@ class OauthCredential implements ICredential
         $headers = Client::JSON_HEADERS;
         $headers = array_merge($headers, $this->getHeaders());
         $response = Client::withHeaders($headers)->post($url)->json(true);
-        if(!isset($response['jwt']))
-        {
+        if (!isset($response['jwt'])) {
             throw new Exception($response['message']);
         }
         $this->accessToken = $response['jwt'];
@@ -172,7 +170,7 @@ class OauthCredential implements ICredential
     }
 
     /**
-     * @return mixed|null
+     * @return int|null
      */
     public function getExpireTTL()
     {
