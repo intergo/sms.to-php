@@ -4,6 +4,7 @@
 namespace Intergo\SmsTo\Module\Auth;
 
 
+use Exception;
 use Intergo\SmsTo\Credentials\ICredential;
 use Intergo\SmsTo\Http\Client;
 use Intergo\SmsTo\Module\BaseModule;
@@ -77,15 +78,12 @@ class Credential extends BaseModule
      *
      * @return array|mixed|\stdClass
      * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws Exception
      */
     public function getBalance()
     {
-        if(!$this->credentials->getToken())
-        {
-            $this->credentials->verify();
-        }
         $url = $this->url . '/api/balance';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 }

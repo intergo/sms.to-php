@@ -29,7 +29,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/users';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -42,7 +42,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/invitations';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -59,7 +59,7 @@ class Team extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/team/user/create';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -76,7 +76,7 @@ class Team extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/team/user/invite';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -90,7 +90,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/user/' . $id . '/disable';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -104,7 +104,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/user/' . $id . '/enable';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -119,7 +119,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/user/' . $id . '/credit?amount=' . $amount;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -134,7 +134,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/user/' . $id . '/debit?amount=' . $amount;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -149,7 +149,7 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/user/' . $id . '/delete';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->delete($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->delete($url)->json(true));
     }
 
     /**
@@ -163,6 +163,6 @@ class Team extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/team/invitation/' . $id . '/delete';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->delete($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->delete($url)->json(true));
     }
 }

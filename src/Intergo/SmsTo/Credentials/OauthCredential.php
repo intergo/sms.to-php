@@ -4,6 +4,8 @@
 namespace Intergo\SmsTo\Credentials;
 
 
+use DateInterval;
+use DateTime;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use Intergo\SmsTo\Http\Client;
@@ -31,9 +33,21 @@ class OauthCredential implements ICredential
     private $secret;
 
     /**
-     * @var mixed|null
+     * @var int|null
      */
     private $expiresIn;
+
+    /**
+     * Offset in seconds
+     *
+     * @var int|null
+     */
+    private $autoRefreshOffset;
+
+    /**
+     * @var DateTime
+     */
+    private $expireTS;
 
     /**
      * @var string
@@ -45,12 +59,14 @@ class OauthCredential implements ICredential
      * @param string $clientId
      * @param string $secret
      * @param null $expiresIn
+     * @param $autoRefreshOffset
      */
-    public function __construct(string $clientId, string $secret, $expiresIn = null)
+    public function __construct(string $clientId, string $secret, $expiresIn = null, $autoRefreshOffset = null)
     {
         $this->clientId = $clientId;
         $this->secret = $secret;
-        $this->expiresIn = $expiresIn;
+        $this->expiresIn = (int) $expiresIn;
+        $this->autoRefreshOffset = $this->expiresIn == 1 ? 30 : $autoRefreshOffset ?? 60;
     }
 
     /**
@@ -70,10 +86,20 @@ class OauthCredential implements ICredential
      */
     public function verify(): array
     {
+        if($this->accessToken) {
+            $credentials = [
+                'jwt' => $this->accessToken,
+                'expires' => $this->expiresIn,
+                'token_type' => 'bearer',
+            ];
+            var_dump($credentials);die();
+            return $credentials;
+        }
         $url = $this->url . '/oauth/token';
         $credentials = [
             'client_id' => $this->clientId,
-            'secret' => $this->secret
+            'secret' => $this->secret,
+            'expires_in' => $this->expiresIn,
         ];
         $response = Client::withHeaders(Client::JSON_HEADERS)->post($url, $credentials)->json(true);
         if(!isset($response['jwt']))
@@ -81,7 +107,9 @@ class OauthCredential implements ICredential
             throw new Exception($response['message']);
         }
         $this->accessToken = $response['jwt'];
-        $this->expiresIn = $response['expires'];
+        $now = new DateTime();
+        $expiresIn = $this->expiresIn;
+        $this->expireTS = $now->add(new DateInterval("P0DT0H${expiresIn}M0S"));
         return $response;
     }
 
@@ -102,6 +130,19 @@ class OauthCredential implements ICredential
         {
             return [];
         }
+        if($this->autoRefreshOffset && $this->expireTS) {
+            $now = new DateTime();
+            $diff = $now->diff($this->expireTS)->s;
+            if($diff > 0 && $diff <= $this->autoRefreshOffset) {
+                echo "Refresh Token\n";
+                $this->refreshToken();
+            }
+        }
+        return $this->getHeaders();
+    }
+
+    private function getHeaders()
+    {
         return [
             'Authorization' => 'Bearer ' . $this->accessToken,
             'X-Smsto-Sdk' => $this->accessToken,
@@ -117,14 +158,16 @@ class OauthCredential implements ICredential
     {
         $url = $this->url . '/refresh';
         $headers = Client::JSON_HEADERS;
-        $headers = array_merge($headers, $this->getAuthHeader());
+        $headers = array_merge($headers, $this->getHeaders());
         $response = Client::withHeaders($headers)->post($url)->json(true);
         if(!isset($response['jwt']))
         {
             throw new Exception($response['message']);
         }
         $this->accessToken = $response['jwt'];
-        $this->expiresIn = $response['expires'];
+        $now = new DateTime();
+        $expiresIn = $this->expiresIn;
+        $this->expireTS = $now->add(new DateInterval("P0DT0H${expiresIn}M0S"));
         return $response;
     }
 

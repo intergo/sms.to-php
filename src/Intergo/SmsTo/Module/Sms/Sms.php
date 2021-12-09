@@ -43,7 +43,7 @@ class Sms extends BaseModule
         $data = $message->prepare();
         $url = $this->url . '/' . $this->type . '/estimate';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -58,7 +58,7 @@ class Sms extends BaseModule
         $data = $message->prepare();
         $url = $this->url . '/' . $this->type . '/send';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -71,7 +71,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/campaigns';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -84,7 +84,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/last/campaign';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -98,7 +98,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/campaigns/' . $id;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -111,7 +111,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/messages';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -124,7 +124,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/last/message';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -138,7 +138,7 @@ class Sms extends BaseModule
     {
         $url = $this->url . '/message/' . $id;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**

@@ -31,7 +31,7 @@ class NumberLookup extends BaseModule
         $data = ['to' => $phone];
         $url = $this->url . '/' . $this->apiVersion . '/verify/number/estimate';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -46,6 +46,6 @@ class NumberLookup extends BaseModule
         $data = ['to' => $phone];
         $url = $this->url . '/' . $this->apiVersion . '/verify/number';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 }

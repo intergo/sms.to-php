@@ -39,7 +39,7 @@ class Contact extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/people/lists/create';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -60,7 +60,7 @@ class Contact extends BaseModule
         $data = array_merge($data, $otherData);
         $url = $this->url . '/' . $this->apiVersion . '/people/contacts/create';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -79,7 +79,7 @@ class Contact extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/people/contacts/delete-phone';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -98,7 +98,7 @@ class Contact extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/people/contacts/optin';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -117,7 +117,7 @@ class Contact extends BaseModule
         ];
         $url = $this->url . '/' . $this->apiVersion . '/people/contacts/optout';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -130,7 +130,7 @@ class Contact extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/recent/optouts';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -156,7 +156,7 @@ class Contact extends BaseModule
         $queryString = http_build_query($payload);
         $url = $this->url . '/' . $this->apiVersion . '/people/contacts?' . $queryString;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -182,7 +182,7 @@ class Contact extends BaseModule
         $queryString = http_build_query($payload);
         $url = $this->url . '/' . $this->apiVersion . '/people/lists?' . $queryString;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -196,6 +196,6 @@ class Contact extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/people/lists/' . $id . '/delete';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->delete($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->delete($url)->json(true));
     }
 }

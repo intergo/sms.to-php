@@ -4,6 +4,7 @@
 namespace Intergo\SmsTo\Module;
 
 
+use Exception;
 use Intergo\SmsTo\Credentials\ICredential;
 
 /**
@@ -59,5 +60,18 @@ class BaseModule
     public function getCredentials(): ICredential
     {
         return $this->credentials;
+    }
+
+    /**
+     * @param array $response
+     * @return array
+     * @throws Exception
+     */
+    protected function response(array $response): array
+    {
+        if(isset($response['success']) && !$response['success']) {
+            throw new Exception($response['message']);
+        }
+        return $response;
     }
 }

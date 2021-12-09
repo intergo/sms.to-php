@@ -41,7 +41,7 @@ class Shortlink extends BaseModule
 
         $url = $this->url . '/' . $this->apiVersion . '/shortlink';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url, $data)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url, $data)->json(true));
     }
 
     /**
@@ -63,7 +63,7 @@ class Shortlink extends BaseModule
         $queryString = http_build_query($payload);
         $url = $this->url . '/' . $this->apiVersion . '/shortlinks?' . $queryString;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -77,7 +77,7 @@ class Shortlink extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/shortlinks/' . $id;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->get($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->get($url)->json(true));
     }
 
     /**
@@ -91,6 +91,6 @@ class Shortlink extends BaseModule
     {
         $url = $this->url . '/' . $this->apiVersion . '/shortlinks/' . $id . '/delete';
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
-        return Client::withHeaders($headers)->post($url)->json(true);
+        return $this->response(Client::withHeaders($headers)->post($url)->json(true));
     }
 }
