@@ -5,6 +5,7 @@ namespace Intergo\SmsTo\Module\Sms;
 
 
 use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use Intergo\SmsTo\Credentials\ICredential;
 use Intergo\SmsTo\Http\Client;
 use Intergo\SmsTo\Module\BaseModule;
@@ -36,7 +37,7 @@ class Sms extends BaseModule
      *
      * @param IMessage $message
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function estimate(IMessage $message)
     {
@@ -51,7 +52,7 @@ class Sms extends BaseModule
      *
      * @param IMessage $message
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function send(IMessage $message)
     {
@@ -65,7 +66,7 @@ class Sms extends BaseModule
      * Get all campaigns
      *
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getCampaigns()
     {
@@ -78,7 +79,7 @@ class Sms extends BaseModule
      * Get Last Campaign
      *
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getLastCampaign()
     {
@@ -92,7 +93,7 @@ class Sms extends BaseModule
      *
      * @param string $id
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getCampaignByID(string $id)
     {
@@ -105,7 +106,7 @@ class Sms extends BaseModule
      * Get all messages
      *
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getMessages()
     {
@@ -118,7 +119,7 @@ class Sms extends BaseModule
      * Get last message
      *
      * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public function getLastMessage()
     {
@@ -131,14 +132,29 @@ class Sms extends BaseModule
      * Get message by ID
      *
      * @param string $id
-     * @return array|mixed|\stdClass
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return array
+     * @throws GuzzleException
      */
     public function getMessageByID(string $id)
     {
         $url = $this->url . '/message/' . $id;
         $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
         return $this->response(Client::withHeaders($headers)->get($url)->json(true));
+    }
+
+    /**
+     * @throws GuzzleException
+     * @throws Exception
+     */
+    public function isOptedOut(string $phone, string $defaultPrefix = null)
+    {
+        $url = $this->url . '/phone/status';
+        $payload = [
+            'phone' => $phone,
+            'default_prefix' => $defaultPrefix
+        ];
+        $headers = array_merge(Client::JSON_HEADERS, $this->credentials->getAuthHeader());
+        return $this->response(Client::withHeaders($headers)->post($url, $payload)->json(true));
     }
 
     /**
