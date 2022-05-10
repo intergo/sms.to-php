@@ -29,5 +29,6 @@ For more details on using this package, visit [this wiki](https://github.com/int
 - [Shortlinks](https://github.com/intergo/sms.to-php/wiki/6.-Shortlinks)
 - [Number Lookup](https://github.com/intergo/sms.to-php/wiki/7.-Number-Lookup)
 - [Team Management](https://github.com/intergo/sms.to-php/wiki/8.-Team-Management)
+- [Webhook Signature](https://github.com/intergo/sms.to-php/wiki/Webhook-Signature)
 ## REST API Documentation
 For more information, refer to SMS.to REST documentation [here](https://docs.sms.to/api/#generate-access-token)
