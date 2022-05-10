@@ -146,7 +146,7 @@ class Signature
      */
     public static function generateSignature($payload, $secret)
     {
-        return \hash_hmac('sha512', $payload, $secret);
+        return \hash_hmac('sha256', $payload, $secret);
     }
 
 }
