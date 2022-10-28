@@ -66,7 +66,6 @@ class Signature
      */
     private static function getSignature($header)
     {
-        $signatures = [];
         $items = \explode(',', $header);
 
         foreach ($items as $item) {
