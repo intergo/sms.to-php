@@ -9,7 +9,7 @@ class Message implements IMessage
     /**
      * @var string
      */
-    public $senderID;
+    public $sender_id;
 
     /**
      * @var string
@@ -31,7 +31,7 @@ class Message implements IMessage
      */
     public function getSenderID(): string
     {
-        return $this->senderID;
+        return $this->sender_id;
     }
 
     /**
@@ -39,7 +39,7 @@ class Message implements IMessage
      */
     public function setSenderID(string $senderID)
     {
-        $this->senderID = $senderID;
+        $this->sender_id = $senderID;
         return $this;
     }
 
