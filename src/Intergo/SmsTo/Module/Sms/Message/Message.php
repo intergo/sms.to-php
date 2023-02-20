@@ -14,17 +14,22 @@ class Message implements IMessage
     /**
      * @var string
      */
-    public $callbackURL;
+    public $callback_url;
 
     /**
      * @var string
      */
-    public $scheduledFor;
+    public $scheduled_for;
 
     /**
      * @var string
      */
     public $timezone;
+
+    /**
+     * @var bool
+     */
+    public $bypass_optout;
 
     /**
      * @return string
@@ -48,7 +53,7 @@ class Message implements IMessage
      */
     public function getCallbackURL(): string
     {
-        return $this->callbackURL;
+        return $this->callback_url;
     }
 
     /**
@@ -56,7 +61,7 @@ class Message implements IMessage
      */
     public function setCallbackURL(string $callbackURL)
     {
-        $this->callbackURL = $callbackURL;
+        $this->callback_url = $callbackURL;
         return $this;
     }
 
@@ -65,7 +70,7 @@ class Message implements IMessage
      */
     public function getScheduledFor(): string
     {
-        return $this->scheduledFor;
+        return $this->scheduled_for;
     }
 
     /**
@@ -73,7 +78,7 @@ class Message implements IMessage
      */
     public function setScheduledFor(string $scheduledFor)
     {
-        $this->scheduledFor = $scheduledFor;
+        $this->scheduled_for = $scheduledFor;
         return $this;
     }
 
@@ -99,7 +104,7 @@ class Message implements IMessage
      */
     public function isBypassOptout(): bool
     {
-        return $this->bypassOptout;
+        return $this->bypass_optout;
     }
 
     /**
@@ -107,16 +112,11 @@ class Message implements IMessage
      */
     public function setBypassOptout(bool $bypassOptout)
     {
-        $this->bypassOptout = $bypassOptout;
+        $this->bypass_optout = $bypassOptout;
         return $this;
     }
 
-    /**
-     * @var bool
-     */
-    public $bypassOptout;
-
-    function prepare(): array
+    public function prepare(): array
     {
         return array_filter((array) $this, function ($val) {
             return !is_null($val) || (is_array($val) && !empty($val));
